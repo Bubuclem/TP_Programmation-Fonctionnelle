@@ -1,0 +1,171 @@
+import requests
+
+from consolemenu import ConsoleMenu, Screen
+from consolemenu.items import FunctionItem
+from consolemenu.prompt_utils import PromptUtils
+
+class BaseAPI():
+    def url_replace(self,url) -> str:
+        return url.replace(" ","%20")
+    def url_request(self,url):
+        return requests.get(url,headers={'content-type': 'application/json'})
+    def json_parsing(self,json):
+        pass
+
+class Google_Books_volumeInfo():
+    title               = None
+    authors             = None
+    publisher           = None
+    publishedDate       = None
+    description         = None
+    
+    pageCount           = None
+    printType           = None
+    categories          = None
+    maturityRating      = None
+    allowAnonLogging    = None
+    contentVersion      = None
+    def __init__(self,json) -> None:
+        self.title          = json.get('title')
+        self.authors        = json.get('authors')
+        self.publisher      = json.get('publisher')
+        self.publishedDate  = json.get('publishedDate')
+        self.description    = json.get('description')
+        
+        self.pageCount          = json.get('pageCount')
+        self.printType          = json.get('printType')
+        self.categories         = json.get('categories')
+        self.maturityRating     = json.get('maturityRating')
+        self.allowAnonLogging   = json.get('allowAnonLogging')
+        self.contentVersion     = json.get('contentVersion')
+
+class Google_Books_Items():
+    kind        = None
+    id          = None
+    etag        = None
+    selfLink    = None
+    volumeInfo  = None
+    def __init__(self,json) -> None:
+        self.kind       = json.get('kind')
+        self.id         = json.get('id')
+        self.etag       = json.get('etag')
+        self.selfLink   = json.get('selfLink')
+        self.volumeInfo = Google_Books_volumeInfo(json['volumeInfo'])
+
+class API_Google_books(BaseAPI):
+    url         = 'https://www.googleapis.com/books/v1/volumes?q='
+    kind        = None
+    totalItems  = 0
+    items       = []
+
+    def __json_parsing(self,json):
+        self.kind       = json.get('kind')
+        self.totalItems = json.get('totalItems')
+        ([ self.items.append(Google_Books_Items(item)) for item in json['items'] ])
+
+    def __input_value(self,value) -> str:
+        return input('{} : '.format(value))
+
+    def __print_report(self):
+        screen = Screen()
+        screen.println('totalItems : {}'.format(self.totalItems))
+        PromptUtils(screen).enter_to_continue() 
+
+    # Intitle
+    def get_intitle(self,value):
+        terms = self.__input_value(value)
+
+        response = self.url_request('{}intitle+{}'.format(self.url,self.url_replace(terms)))
+        data = response.json()
+        self.__json_parsing(data)
+
+        self.__print_report()
+        
+    # Inauthor
+    def get_inauthor(self,value):
+        terms = self.__input_value(value)
+
+        response = self.url_request('{}inauthor+{}'.format(self.url,self.url_replace(terms)))
+        data = response.json()
+        self.__json_parsing(data)
+
+        self.print_report()
+
+    # Inpublisher
+    def get_inpublisher(self,value):
+        terms = self.__input_value(value)
+
+        response = self.url_request('{}inpublisher+{}'.format(self.url,self.url_replace(terms)))
+        data = response.json()
+        self.__json_parsing(data)
+
+        self.__print_report()
+
+    # Subject
+    def get_subject(self,value):
+        terms = self.__input_value(value)
+
+        response = self.url_request('{}subject+{}'.format(self.url,self.url_replace(terms)))
+        data = response.json()
+        self.__json_parsing(data)
+
+        self.__print_report()
+
+    # ISBN
+    def get_isbn(self,value):
+        terms = self.__input_value(value)
+
+        response = self.url_request('{}isbn+{}'.format(self.url,self.url_replace(terms)))
+        data = response.json()
+        self.__json_parsing(data)
+
+        self.__print_report()
+
+    # LCCN
+    def get_lccn(self,value):
+        terms = self.__input_value(value)
+
+        response = self.url_request('{}lccn+{}'.format(self.url,self.url_replace(terms)))
+        data = response.json()
+        self.__json_parsing(data)
+
+        self.__print_report()
+        
+    # OCLC
+    def get_oclc(self,value):
+        terms = self.__input_value(value)
+
+        response = self.url_request('{}oclc+{}'.format(self.url,self.url_replace(terms)))
+        data = response.json()
+        self.__json_parsing(data)
+
+        self.__print_report()
+        
+
+class Menu():
+    menu = ConsoleMenu("Google Books", "Rechercher un livre avec l'api de Google")
+    book = API_Google_books()
+
+    def __init__(self) -> None:
+        function_item_Intitle       = FunctionItem("Intitle",       self.book.get_intitle,      ["Enter Intitle"])
+        function_item_Inauthor      = FunctionItem("Inauthor",      self.book.get_inauthor,     ["Enter Inauthor"])
+        function_item_Inpublisher   = FunctionItem("Inpublisher",   self.book.get_inpublisher,  ["Enter Inpublisher"])
+        function_item_Subject       = FunctionItem("Subject",       self.book.get_subject,      ["Enter Subject"])
+        function_item_ISBN          = FunctionItem("ISBN",          self.book.get_isbn,         ["Enter ISBN"])
+        function_item_LCCN          = FunctionItem("LCCN",          self.book.get_lccn,         ["Enter LCCN"])
+        function_item_OCLC          = FunctionItem("OCLC",          self.book.get_oclc,         ["Enter OCLC"])
+        
+        self.menu.append_item(function_item_Intitle)
+        self.menu.append_item(function_item_Inauthor)
+        self.menu.append_item(function_item_Inpublisher)
+        self.menu.append_item(function_item_Subject)
+        self.menu.append_item(function_item_ISBN)
+        self.menu.append_item(function_item_LCCN)
+        self.menu.append_item(function_item_OCLC)
+
+    def show(self):
+        self.menu.show()
+
+if __name__ == '__main__':
+    menu = Menu()
+    menu.show()
