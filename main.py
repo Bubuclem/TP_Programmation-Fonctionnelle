@@ -56,7 +56,7 @@ class Google_Books_Items():
         self.volumeInfo = Google_Books_volumeInfo(json['volumeInfo'])
 
 class API_Google_books():
-    url         = 'https://www.googleapis.com/books/v1/volumes?q='
+    URL         = 'https://www.googleapis.com/books/v1/volumes?q='
     kind        = None
     totalItems  = 0
     items       = []
@@ -89,7 +89,7 @@ class API_Google_books():
     def get_intitle(self,value):
         terms = self.__input_value(value)
 
-        response = self.__url_request('{}intitle+{}'.format(self.url,self.__url_replace(terms)))
+        response = self.__url_request('{}intitle+{}'.format(self.URL,self.__url_replace(terms)))
         data = response.json()
         self.__json_parsing(data)
 
@@ -99,7 +99,7 @@ class API_Google_books():
     def get_inauthor(self,value):
         terms = self.__input_value(value)
 
-        response = self.__url_request('{}inauthor+{}'.format(self.url,self.__url_replace(terms)))
+        response = self.__url_request('{}inauthor+{}'.format(self.URL,self.__url_replace(terms)))
         data = response.json()
         self.__json_parsing(data)
 
@@ -109,7 +109,7 @@ class API_Google_books():
     def get_inpublisher(self,value):
         terms = self.__input_value(value)
 
-        response = self.__url_request('{}inpublisher+{}'.format(self.url,self.__url_replace(terms)))
+        response = self.__url_request('{}inpublisher+{}'.format(self.URL,self.__url_replace(terms)))
         data = response.json()
         self.__json_parsing(data)
 
@@ -119,7 +119,7 @@ class API_Google_books():
     def get_subject(self,value):
         terms = self.__input_value(value)
 
-        response = self.__url_request('{}subject+{}'.format(self.url,self.__url_replace(terms)))
+        response = self.__url_request('{}subject+{}'.format(self.URL,self.__url_replace(terms)))
         data = response.json()
         self.__json_parsing(data)
 
@@ -129,7 +129,7 @@ class API_Google_books():
     def get_isbn(self,value):
         terms = self.__input_value(value)
 
-        response = self.__url_request('{}isbn+{}'.format(self.url,self.__url_replace(terms)))
+        response = self.__url_request('{}isbn+{}'.format(self.URL,self.__url_replace(terms)))
         data = response.json()
         self.__json_parsing(data)
 
@@ -139,7 +139,7 @@ class API_Google_books():
     def get_lccn(self,value):
         terms = self.__input_value(value)
 
-        response = self.__url_request('{}lccn+{}'.format(self.url,self.__url_replace(terms)))
+        response = self.__url_request('{}lccn+{}'.format(self.URL,self.__url_replace(terms)))
         data = response.json()
         self.__json_parsing(data)
 
@@ -149,7 +149,7 @@ class API_Google_books():
     def get_oclc(self,value):
         terms = self.__input_value(value)
 
-        response = self.__url_request('{}oclc+{}'.format(self.url,self.__url_replace(terms)))
+        response = self.__url_request('{}oclc+{}'.format(self.URL,self.__url_replace(terms)))
         data = response.json()
         self.__json_parsing(data)
 
