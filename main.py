@@ -148,13 +148,13 @@ class Menu():
     book = API_Google_books()
 
     def __init__(self) -> None:
-        function_item_Intitle       = FunctionItem("Intitle",       self.book.get_intitle,      ["Enter Intitle"])
-        function_item_Inauthor      = FunctionItem("Inauthor",      self.book.get_inauthor,     ["Enter Inauthor"])
-        function_item_Inpublisher   = FunctionItem("Inpublisher",   self.book.get_inpublisher,  ["Enter Inpublisher"])
-        function_item_Subject       = FunctionItem("Subject",       self.book.get_subject,      ["Enter Subject"])
-        function_item_ISBN          = FunctionItem("ISBN",          self.book.get_isbn,         ["Enter ISBN"])
-        function_item_LCCN          = FunctionItem("LCCN",          self.book.get_lccn,         ["Enter LCCN"])
-        function_item_OCLC          = FunctionItem("OCLC",          self.book.get_oclc,         ["Enter OCLC"])
+        function_item_Intitle       = FunctionItem("Titre",         self.book.get_intitle,      ["Entrer le Titre"])
+        function_item_Inauthor      = FunctionItem("Auteur",        self.book.get_inauthor,     ["Entrer l'auteur"])
+        function_item_Inpublisher   = FunctionItem("Editeur",       self.book.get_inpublisher,  ["Entrer l'éditeur"])
+        function_item_Subject       = FunctionItem("Subject",       self.book.get_subject,      ["Entrer le sujet"])
+        function_item_ISBN          = FunctionItem("ISBN",          self.book.get_isbn,         ["Entrer ISBN"])
+        function_item_LCCN          = FunctionItem("LCCN",          self.book.get_lccn,         ["Entrer LCCN"])
+        function_item_OCLC          = FunctionItem("OCLC",          self.book.get_oclc,         ["Entrer OCLC"])
         
         self.menu.append_item(function_item_Intitle)
         self.menu.append_item(function_item_Inauthor)

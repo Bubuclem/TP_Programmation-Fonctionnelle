@@ -17,4 +17,4 @@ Exemple de code immuable
       totalItems  = 0
       items       = []
 
-Dans notre classe API_Google_books, la constante URL est immuable 
+Dans notre classe API_Google_books, la constante URL est immuable
