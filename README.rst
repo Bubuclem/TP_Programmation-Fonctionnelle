@@ -10,3 +10,5 @@ Illustrer les concepts suivants dans un exemple de code source de votre choix :
     • Séparation entre domaines pur et impurs
 
 Indiquer en commentaire / documentation où les concepts sont illustrés dans le code
+
+`Documentation <https://tp-programmation-fonctionnelle.readthedocs.io/en/latest/index.html>`_
