@@ -37,13 +37,16 @@ Exemple de fonctions impures
    :emphasize-lines: 3,5
 
    def f() -> int:
-      return 0
+      return i
+à cause de la variation de la valeur de retour avec une variable non locale
 
 .. code-block:: python
    :emphasize-lines: 3,5
 
    def f( i ) -> int:
       return i
+
+à cause de la variation de la valeur de retour avec un argument mutable de type référence
 
 .. code-block:: python
    :emphasize-lines: 3,5
@@ -52,8 +55,12 @@ Exemple de fonctions impures
       i = 0
       return i+1
 
+à cause de la mutation d'une variable statique locale
+
 .. code-block:: python
    :emphasize-lines: 3,5
 
    def f():
-      return +1
+      return +i
+
+à cause de la mutation d'une variable non locale
