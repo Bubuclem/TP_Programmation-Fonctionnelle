@@ -8,6 +8,7 @@ Fonctions d’ordre supérieur
       • elles renvoient une fonction
 
 Exemple de fonction d’ordre supérieur
+-------------------------------------
 
 .. code-block:: python
    :emphasize-lines: 3,5
