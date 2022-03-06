@@ -12,3 +12,19 @@ Exemple de fonction d’ordre supérieur
 
 .. code-block:: python
    :emphasize-lines: 3,5
+
+   def __json_parsing(self,json,callback):
+      self.kind       = json.get('kind')
+      self.totalItems = json.get('totalItems')
+      ([ self.items.append(Google_Books_Items(item)) for item in json['items'] ])
+
+      callback()
+
+La fonction __json_parsing prend une fonction en enter pour effectuer un callback après le parsing d'un json
+
+.. code-block:: python
+   :emphasize-lines: 3,5
+
+   function_item_Intitle = FunctionItem("Intitle", self.book.get_intitle, ["Enter Intitle"])
+
+La fonction FunctionItem prend également une fonction en enter pour effectuer le traitement affilié s'il est appelé

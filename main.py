@@ -67,10 +67,12 @@ class API_Google_books():
     def __url_request(self,url):
         return requests.get(url,headers={'content-type': 'application/json'})
 
-    def __json_parsing(self,json):
+    def __json_parsing(self,json,callback):
         self.kind       = json.get('kind')
         self.totalItems = json.get('totalItems')
         ([ self.items.append(Google_Books_Items(item)) for item in json['items'] ])
+
+        callback()
 
     def __input_value(self,value) -> str:
         return input('{} : '.format(value))
@@ -91,9 +93,7 @@ class API_Google_books():
 
         response = self.__url_request('{}intitle+{}'.format(self.URL,self.__url_replace(terms)))
         data = response.json()
-        self.__json_parsing(data)
-
-        self.__print_report()
+        self.__json_parsing(data,self.__print_report)
         
     # Inauthor
     def get_inauthor(self,value):
@@ -101,9 +101,7 @@ class API_Google_books():
 
         response = self.__url_request('{}inauthor+{}'.format(self.URL,self.__url_replace(terms)))
         data = response.json()
-        self.__json_parsing(data)
-
-        self.__print_report()
+        self.__json_parsing(data,self.__print_report)
 
     # Inpublisher
     def get_inpublisher(self,value):
@@ -111,9 +109,7 @@ class API_Google_books():
 
         response = self.__url_request('{}inpublisher+{}'.format(self.URL,self.__url_replace(terms)))
         data = response.json()
-        self.__json_parsing(data)
-
-        self.__print_report()
+        self.__json_parsing(data,self.__print_report)
 
     # Subject
     def get_subject(self,value):
@@ -121,9 +117,7 @@ class API_Google_books():
 
         response = self.__url_request('{}subject+{}'.format(self.URL,self.__url_replace(terms)))
         data = response.json()
-        self.__json_parsing(data)
-
-        self.__print_report()
+        self.__json_parsing(data,self.__print_report)
 
     # ISBN
     def get_isbn(self,value):
@@ -131,9 +125,7 @@ class API_Google_books():
 
         response = self.__url_request('{}isbn+{}'.format(self.URL,self.__url_replace(terms)))
         data = response.json()
-        self.__json_parsing(data)
-
-        self.__print_report()
+        self.__json_parsing(data,self.__print_report)
 
     # LCCN
     def get_lccn(self,value):
@@ -141,9 +133,7 @@ class API_Google_books():
 
         response = self.__url_request('{}lccn+{}'.format(self.URL,self.__url_replace(terms)))
         data = response.json()
-        self.__json_parsing(data)
-
-        self.__print_report()
+        self.__json_parsing(data,self.__print_report)
         
     # OCLC
     def get_oclc(self,value):
@@ -151,11 +141,8 @@ class API_Google_books():
 
         response = self.__url_request('{}oclc+{}'.format(self.URL,self.__url_replace(terms)))
         data = response.json()
-        self.__json_parsing(data)
-
-        self.__print_report()
+        self.__json_parsing(data,self.__print_report)
         
-
 class Menu():
     menu = ConsoleMenu("Google Books", "Rechercher un livre avec l'api de Google")
     book = API_Google_books()
