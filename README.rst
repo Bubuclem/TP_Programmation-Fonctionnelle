@@ -1,4 +1,5 @@
-# TP_Programmation-Fonctionnelle
+TP_Programmation-Fonctionnelle
+================================
 
 Illustrer les concepts suivants dans un exemple de code source de votre choix :
     • Fonctions d’ordre supérieur
